@@ -254,9 +254,9 @@ Este proyecto está bajo la Licencia MIT. Ver el archivo [LICENSE](LICENSE) para
 
 ## 📧 Contacto
 
-**Autor**: Tu Nombre  
-**Email**: tu.email@ejemplo.com  
-**Universidad**: Tu Universidad  
+**Autor**: Jeel Cueva  
+**Email**: jeel.cueva.l@uni.pe  
+**Universidad**: Universidad Nacional de Ingeniería  
 **Sitio web del libro**: [www.ejemplo.com/libro-econometria](https://www.ejemplo.com)
 
 ---
@@ -264,7 +264,7 @@ Este proyecto está bajo la Licencia MIT. Ver el archivo [LICENSE](LICENSE) para
 ## 🙏 Agradecimientos
 
 Este material fue desarrollado gracias al apoyo de:
-- [Tu Universidad/Institución]
+- Universidad Nacional de Ingeniería
 - Estudiantes de las generaciones 2020-2024
 - Colaboradores y revisores del código
 
@@ -276,12 +276,12 @@ Si usas este código en tu investigación o enseñanza, por favor cita:
 
 ```bibtex
 @misc{econometria_libro_codigo,
-  author = {Tu Nombre},
-  title = {Código del Libro: Introducción a la Econometría},
-  year = {2024},
+  author = {Jeel Cueva},
+  title = {Código del Libro: Econometría Teórica Y Aplicada},
+  year = {2026},
   publisher = {GitHub},
   journal = {GitHub repository},
-  howpublished = {\url{https://github.com/tu-usuario/econometria-libro-codigo}}
+  howpublished = {\url{[(https://github.com/JeelCueva/econometria-libro-codigo)]}}
 }
 ```
 
