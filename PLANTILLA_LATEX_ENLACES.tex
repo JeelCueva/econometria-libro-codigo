@@ -1,0 +1,331 @@
+% ====================================================================
+% PLANTILLA LATEX: ENLACES A CÓDIGO EN GITHUB
+% Para el libro "Introducción a la Econometría"
+% ====================================================================
+
+% ---- CONFIGURACIÓN EN EL PREÁMBULO ----
+
+% Agregar en tu preámbulo:
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{listings}
+
+% Configurar colores para enlaces
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=blue,
+    citecolor=green,
+    pdftitle={Introducción a la Econometría},
+    pdfauthor={Tu Nombre},
+    pdfsubject={Econometría},
+    pdfkeywords={econometría, Python, R, regresión},
+}
+
+% ====================================================================
+% EJEMPLO 1: SECCIÓN DE CÓDIGO AL FINAL DE CADA CAPÍTULO
+% ====================================================================
+
+\section{Implementación Computacional}
+
+Todo el código de este capítulo está disponible públicamente en GitHub:
+
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=📦 Recursos Computacionales]
+
+\textbf{Repositorio completo:}
+\begin{center}
+\url{https://github.com/tu-usuario/econometria-libro-codigo}
+\end{center}
+
+\textbf{Código de este capítulo:}
+\begin{itemize}
+\item \textbf{Python}: \href{https://github.com/tu-usuario/econometria-libro-codigo/blob/main/capitulo03_algebra_matricial/scripts/verificacion_cap3.py}{\texttt{verificacion\_cap3.py}}
+
+\item \textbf{R}: \href{https://github.com/tu-usuario/econometria-libro-codigo/blob/main/capitulo03_algebra_matricial/scripts/caso_practico.R}{\texttt{caso\_practico.R}}
+
+\item \textbf{Jupyter Notebook}: \href{https://github.com/tu-usuario/econometria-libro-codigo/blob/main/capitulo03_algebra_matricial/notebooks/cap3_interactivo.ipynb}{\texttt{cap3\_interactivo.ipynb}}
+
+\item \textbf{Datos}: \href{https://github.com/tu-usuario/econometria-libro-codigo/blob/main/capitulo03_algebra_matricial/datos/datos_gasto_hogares.csv}{\texttt{datos\_gasto\_hogares.csv}}
+\end{itemize}
+
+\textbf{Ejecutar sin instalar nada:}
+\begin{itemize}
+\item Python en Colab: \href{https://colab.research.google.com/github/tu-usuario/econometria-libro-codigo/blob/main/capitulo03_algebra_matricial/notebooks/cap3_interactivo.ipynb}{Abrir en Google Colab}
+
+\item R en Posit Cloud: \href{https://posit.cloud/content/TU-ID-AQUI}{Abrir en RStudio Cloud}
+\end{itemize}
+
+\end{tcolorbox}
+
+% ====================================================================
+% EJEMPLO 2: FORMATO COMPACTO (AHORRA ESPACIO)
+% ====================================================================
+
+\subsection{Código y Datos}
+
+\textbf{GitHub}: \url{https://github.com/tu-usuario/econometria-libro-codigo/tree/main/capitulo03_algebra_matricial}
+
+Scripts: \href{URL}{\texttt{Python}} | \href{URL}{\texttt{R}} | \href{URL}{\texttt{Jupyter}} | Datos: \href{URL}{\texttt{CSV}}
+
+Ejecutar online: \href{URL}{Colab} | \href{URL}{Posit Cloud}
+
+% ====================================================================
+% EJEMPLO 3: TABLA CON TODOS LOS CAPÍTULOS (EN LA INTRODUCCIÓN)
+% ====================================================================
+
+\section{Recursos Computacionales del Libro}
+
+\begin{table}[h]
+\centering
+\caption{Enlaces a código por capítulo}
+\begin{tabular}{clcc}
+\toprule
+\textbf{Cap.} & \textbf{Tema} & \textbf{Python} & \textbf{R} \\
+\midrule
+1 & Introducción & \href{URL}{📄} & \href{URL}{📄} \\
+2 & Estadística Básica & \href{URL}{📄} & \href{URL}{📄} \\
+3 & Álgebra Matricial & \href{URL}{📄} & \href{URL}{📄} \\
+4 & Regresión Simple & \href{URL}{📄} & \href{URL}{📄} \\
+5 & Regresión Múltiple & \href{URL}{📄} & \href{URL}{📄} \\
+\vdots & \vdots & \vdots & \vdots \\
+18 & Máxima Verosimilitud & \href{URL}{📄} & \href{URL}{📄} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Repositorio completo: \url{https://github.com/tu-usuario/econometria-libro-codigo}
+
+% ====================================================================
+% EJEMPLO 4: SECCIÓN INLINE DENTRO DEL TEXTO
+% ====================================================================
+
+El código completo para este ejemplo está disponible en 
+\href{https://github.com/tu-usuario/econometria-libro-codigo/blob/main/capitulo03_algebra_matricial/scripts/verificacion_cap3.py}{\texttt{verificacion\_cap3.py}}, 
+donde se puede verificar numéricamente que $R^2 = 0.9994$.
+
+% ====================================================================
+% EJEMPLO 5: NOTA AL PIE (FOOTNOTE)
+% ====================================================================
+
+El modelo de regresión múltiple\footnote{Código disponible en: 
+\url{https://github.com/tu-usuario/econometria-libro-codigo/tree/main/capitulo03_algebra_matricial}} 
+produce estimaciones robustas cuando...
+
+% ====================================================================
+% EJEMPLO 6: MARGEN LATERAL (REQUIERE PAQUETE MARGINNOTE)
+% ====================================================================
+
+\usepackage{marginnote}
+
+% En el texto:
+El estimador MCO es...
+
+\marginnote{
+\footnotesize
+\textbf{Código:}\\
+\href{URL}{Python}\\
+\href{URL}{R}\\
+\href{URL}{Colab}
+}
+
+% ====================================================================
+% EJEMPLO 7: CÓDIGO QR (PARA VERSIÓN IMPRESA)
+% ====================================================================
+
+% Generar código QR online en: https://www.qr-code-generator.com/
+% Luego incluir la imagen:
+
+\begin{center}
+\includegraphics[width=3cm]{qr_code_cap3.png}\\
+\small Escanea para acceder al código
+\end{center}
+
+% ====================================================================
+% EJEMPLO 8: LISTA DE EJERCICIOS CON CÓDIGO
+% ====================================================================
+
+\subsection{Ejercicios Computacionales}
+
+\begin{enumerate}
+\item Replique el ejemplo 3.1 usando el código en 
+\href{URL}{\texttt{ejemplo3\_1.py}}. Modifique los datos y observe...
+
+\item Complete el ejercicio 3.5 usando como base el código en 
+\href{URL}{\texttt{ejercicio3\_5\_template.py}}. Su tarea es...
+
+\item Los datos para este ejercicio están en 
+\href{URL}{\texttt{datos\_ejercicio3.csv}}. Estime el modelo...
+\end{enumerate}
+
+% ====================================================================
+% EJEMPLO 9: APÉNDICE CON INSTRUCCIONES DE INSTALACIÓN
+% ====================================================================
+
+\appendix
+\chapter{Recursos Computacionales}
+
+\section{Acceso al Código}
+
+\subsection{Opción 1: Repositorio GitHub (Recomendado)}
+
+Todo el código está disponible en:
+
+\begin{center}
+\Large\url{https://github.com/tu-usuario/econometria-libro-codigo}
+\end{center}
+
+\textbf{Para descargar}:
+\begin{lstlisting}[language=bash]
+# Clonar el repositorio completo
+git clone https://github.com/tu-usuario/econometria-libro-codigo.git
+
+# O descargar como ZIP
+# Click en "Code" > "Download ZIP" en GitHub
+\end{lstlisting}
+
+\subsection{Opción 2: Google Colab (Sin Instalación)}
+
+Los notebooks Jupyter se pueden ejecutar directamente en Google Colab:
+
+\begin{itemize}
+\item \href{URL}{Capítulo 1: Introducción}
+\item \href{URL}{Capítulo 2: Estadística Básica}
+\item \href{URL}{Capítulo 3: Álgebra Matricial}
+\item (etc.)
+\end{itemize}
+
+No requiere instalación local. Solo necesitas una cuenta de Google.
+
+\subsection{Opción 3: Posit Cloud (Para R)}
+
+Los scripts de R están disponibles en Posit Cloud:
+
+\begin{itemize}
+\item \href{URL}{Proyecto completo en Posit Cloud}
+\end{itemize}
+
+RStudio completo en tu navegador.
+
+\section{Instalación Local}
+
+\subsection{Python}
+
+\textbf{Requisitos}: Python 3.8 o superior
+
+\begin{lstlisting}[language=bash]
+# Clonar repositorio
+git clone https://github.com/tu-usuario/econometria-libro-codigo.git
+cd econometria-libro-codigo
+
+# Crear entorno virtual (opcional pero recomendado)
+python -m venv env_econometria
+source env_econometria/bin/activate  # En Windows: env_econometria\Scripts\activate
+
+# Instalar dependencias
+pip install -r requirements.txt
+
+# Ejecutar un ejemplo
+cd capitulo03_algebra_matricial/scripts
+python verificacion_cap3.py
+\end{lstlisting}
+
+\subsection{R}
+
+\textbf{Requisitos}: R 4.0 o superior
+
+\begin{lstlisting}[language=R]
+# Instalar paquetes necesarios
+install.packages(c("tidyverse", "lmtest", "sandwich", 
+                   "car", "tseries", "vars"))
+
+# Ejecutar un script
+setwd("capitulo03_algebra_matricial/scripts")
+source("caso_practico.R")
+\end{lstlisting}
+
+% ====================================================================
+% EJEMPLO 10: PÁGINA DE CRÉDITOS CON REPOSITORIO
+% ====================================================================
+
+\chapter*{Sobre este Libro}
+
+\section*{Recursos Digitales}
+
+Este libro viene acompañado de:
+
+\begin{itemize}
+\item \textbf{Código completo} en Python y R
+\item \textbf{Conjuntos de datos} reales y simulados
+\item \textbf{Notebooks interactivos} ejecutables en la nube
+\item \textbf{Ejercicios resueltos} paso a paso
+\end{itemize}
+
+Todo disponible gratuitamente en:
+
+\begin{center}
+\Large\textbf{\url{https://github.com/tu-usuario/econometria-libro-codigo}}
+\end{center}
+
+\vspace{1cm}
+
+\begin{tcolorbox}[colback=gray!10, colframe=gray!50, title=Cómo usar los recursos]
+\begin{enumerate}
+\item \textbf{Ver online}: Navega por el repositorio en GitHub
+\item \textbf{Descargar}: Click en "Code" > "Download ZIP"
+\item \textbf{Clonar}: \texttt{git clone [URL]}
+\item \textbf{Ejecutar en la nube}: Click en los badges de Colab/Posit Cloud
+\end{enumerate}
+\end{tcolorbox}
+
+\section*{Reportar Erratas}
+
+Si encuentras errores en el código o en el libro:
+
+\begin{itemize}
+\item \textbf{Issues de GitHub}: \url{https://github.com/tu-usuario/econometria-libro-codigo/issues}
+\item \textbf{Email}: \href{mailto:tu.email@ejemplo.com}{tu.email@ejemplo.com}
+\end{itemize}
+
+% ====================================================================
+% EJEMPLO 11: BADGES PROFESIONALES (REQUIERE INCLUIR IMÁGENES)
+% ====================================================================
+
+% Descargar badges de:
+% - https://shields.io/
+% - https://colab.research.google.com/assets/colab-badge.svg
+
+\begin{center}
+\href{https://github.com/tu-usuario/econometria-libro-codigo}{
+    \includegraphics[height=0.8cm]{badge_github.png}
+}
+\hspace{0.5cm}
+\href{https://colab.research.google.com/...}{
+    \includegraphics[height=0.8cm]{badge_colab.png}
+}
+\hspace{0.5cm}
+\href{https://posit.cloud/...}{
+    \includegraphics[height=0.8cm]{badge_rstudio.png}
+}
+\end{center}
+
+% ====================================================================
+% NOTAS FINALES
+% ====================================================================
+
+% RECORDATORIOS:
+% 1. Reemplazar "tu-usuario" con tu usuario real de GitHub
+% 2. Reemplazar "URL" con las URLs completas de tus archivos
+% 3. Compilar con pdflatex o xelatex
+% 4. Asegurarte de que hyperref está configurado
+% 5. Los enlaces funcionarán en la versión PDF digital
+
+% VENTAJAS DE ESTE ENFOQUE:
+% ✓ Los lectores hacen clic y acceden directamente al código
+% ✓ El código está siempre actualizado (en GitHub)
+% ✓ Fácil de mantener (un solo lugar)
+% ✓ Profesional y moderno
+% ✓ Permite colaboración y feedback
+
+% ====================================================================

@@ -1,0 +1,74 @@
+# ====================================================================
+# DEPENDENCIAS PYTHON PARA "INTRODUCCIÓN A LA ECONOMETRÍA"
+# ====================================================================
+# Instalar con: pip install -r requirements.txt
+# O crear entorno: python -m venv econometria && source econometria/bin/activate
+# ====================================================================
+
+# Versión mínima de Python: 3.8+
+
+# ---- LIBRERÍAS FUNDAMENTALES ----
+numpy>=1.21.0                # Operaciones numéricas y álgebra lineal
+pandas>=1.3.0                # Manipulación de datos
+scipy>=1.7.0                 # Funciones científicas y estadísticas
+
+# ---- ESTADÍSTICA Y ECONOMETRÍA ----
+statsmodels>=0.13.0          # Modelos econométricos principales
+scikit-learn>=1.0.0          # Machine learning y regresión
+linearmodels>=4.27           # Modelos de panel y IV
+arch>=5.3.0                  # Modelos ARCH/GARCH para volatilidad
+
+# ---- VISUALIZACIÓN ----
+matplotlib>=3.4.0            # Gráficos básicos
+seaborn>=0.11.0              # Visualización estadística
+plotly>=5.3.0                # Gráficos interactivos
+
+# ---- SERIES TEMPORALES ----
+pmdarima>=1.8.5              # Auto-ARIMA
+prophet>=1.1                 # Forecasting con FB Prophet
+
+# ---- MANEJO DE DATOS ----
+openpyxl>=3.0.9              # Leer/escribir archivos Excel
+xlrd>=2.0.1                  # Leer archivos Excel antiguos (.xls)
+
+# ---- JUPYTER Y NOTEBOOKS ----
+jupyter>=1.0.0               # Jupyter Notebook
+ipykernel>=6.4.0             # Kernel de Python para Jupyter
+notebook>=6.4.0              # Interface de Jupyter
+ipywidgets>=7.6.0            # Widgets interactivos
+
+# ---- UTILIDADES ----
+tqdm>=4.62.0                 # Barras de progreso
+requests>=2.26.0             # Descargar datos de APIs
+beautifulsoup4>=4.10.0       # Web scraping (datos adicionales)
+
+# ---- TESTING Y CALIDAD DE CÓDIGO ----
+pytest>=6.2.5                # Framework de testing
+black>=21.9b0                # Formateador de código
+flake8>=4.0.1                # Linter de código
+
+# ---- FORMATO Y REPORTES ----
+tabulate>=0.8.9              # Tablas formateadas
+jinja2>=3.0.2                # Plantillas para reportes
+
+# ---- OPCIONAL: ANÁLISIS AVANZADO ----
+# pymc3>=3.11.4              # Inferencia Bayesiana (descomenta si necesitas)
+# tensorflow>=2.7.0          # Deep learning (descomenta si necesitas)
+# torch>=1.10.0              # PyTorch (descomenta si necesitas)
+
+# ====================================================================
+# NOTAS:
+# 1. Para crear un entorno virtual:
+#    python -m venv env_econometria
+#    source env_econometria/bin/activate  (Linux/Mac)
+#    env_econometria\Scripts\activate     (Windows)
+#
+# 2. Para instalar todo:
+#    pip install -r requirements.txt
+#
+# 3. Para actualizar todo:
+#    pip install --upgrade -r requirements.txt
+#
+# 4. Para exportar tu entorno actual:
+#    pip freeze > requirements_actual.txt
+# ====================================================================
