@@ -1,51 +1,85 @@
-# ==============================================================================
-# CAPÍTULO 2: DISTRIBUCIÓN NORMAL ESTÁNDAR
-# ==============================================================================
+# ============================================
+# Modulo 1: Validacion de Distribucion Normal
+# ============================================
 
-cat("=== DISTRIBUCIÓN NORMAL ESTÁNDAR ===\n\n")
+# Configuracion
 set.seed(123)
-
 n <- 1000
-muestra <- rnorm(n, mean = 0, sd = 1)
 
-media_muestral <- mean(muestra)
-sd_muestral <- sd(muestra)
-library(moments)
-asimetria <- skewness(muestra)
-curtosis <- kurtosis(muestra)
+# Generar datos N(0,1)
+x <- rnorm(n, mean = 0, sd = 1)
 
-cat("Media muestral:", round(media_muestral, 4), "\n")
-cat("Desviación estándar:", round(sd_muestral, 4), "\n")
-cat("Asimetría:", round(asimetria, 4), "\n")
-cat("Curtosis:", round(curtosis, 4), "\n\n")
+# Estadisticas descriptivas
+estadisticas <- data.frame(
+  Estadistico = c("Media", "Desv.Est.", "Asimetria", "Curtosis"),
+  Valor = c(
+    mean(x),
+    sd(x),
+    moments::skewness(x),
+    moments::kurtosis(x)
+  ),
+  Teorico = c(0, 1, 0, 3)
+)
 
-shapiro_test <- shapiro.test(muestra)
-cat("Prueba Shapiro-Wilk:\n")
-cat("Estadístico W:", round(shapiro_test$statistic, 4), "\n")
-cat("P-valor:", round(shapiro_test$p.value, 4), "\n\n")
+print(estadisticas)
 
-prob_1.96 <- pnorm(1.96)
-prob_intervalo <- pnorm(1.96) - pnorm(-1.96)
-cat("P(Z ≤ 1.96) =", round(prob_1.96, 4), "\n")
-cat("P(-1.96 ≤ Z ≤ 1.96) =", round(prob_intervalo, 4), "\n\n")
+# Prueba de normalidad Shapiro-Wilk
+shapiro_test <- shapiro.test(x)
+cat("\nShapiro-Wilk Test:\n")
+cat("W =", shapiro_test$statistic, "\n")
+cat("p-value =", shapiro_test$p.value, "\n")
 
+# Probabilidades y cuantiles
+prob_menor_196 <- pnorm(1.96)
+prob_entre_196 <- pnorm(1.96) - pnorm(-1.96)
+q_025 <- qnorm(0.025)
+q_975 <- qnorm(0.975)
+
+cat("\nProbabilidades y Cuantiles:\n")
+cat("P(Z <= 1.96) =", prob_menor_196, "\n")
+cat("P(-1.96 <= Z <= 1.96) =", prob_entre_196, "\n")
+cat("Cuantil 2.5% =", q_025, "\n")
+cat("Cuantil 97.5% =", q_975, "\n")
+
+# Visualizacion en RStudio
 library(ggplot2)
-library(gridExtra)
 
-p1 <- ggplot(data.frame(x = muestra), aes(x = x)) +
-  geom_histogram(aes(y = after_stat(density)), bins = 30,
-                 fill = "lightblue", color = "black", alpha = 0.7) +
+# Figura 1: Histograma vs densidad teorica
+p1 <- ggplot(data.frame(x = x), aes(x = x)) +
+  geom_histogram(aes(y = after_stat(density)), 
+                 bins = 30, fill = "orange", 
+                 color = "black", alpha = 0.7) +
   stat_function(fun = dnorm, args = list(mean = 0, sd = 1),
-                color = "red", size = 1.5) +
-  labs(title = "Histograma vs. Densidad Teórica",
-       x = "Valores", y = "Densidad") +
+                color = "red", size = 1.2) +
+  labs(title = "Histograma vs Densidad Teorica N(0,1)",
+       x = "Valor", y = "Densidad") +
   theme_minimal()
 
-p2 <- ggplot(data.frame(muestra), aes(sample = muestra)) +
-  stat_qq() + stat_qq_line(color = "red", size = 1) +
-  labs(title = "Q-Q Plot Normal") +
+# Mostrar primera figura en panel de plots
+print(p1)
+
+# Pausa para ver la primera gráfica (opcional)
+cat("\nPresiona Enter para ver la siguiente gráfica...")
+invisible(readline())
+
+# Figura 2: Q-Q plot
+p2 <- ggplot(data.frame(x = x), aes(sample = x)) +
+  stat_qq() +
+  stat_qq_line(color = "red", size = 1) +
+  labs(title = "Grafico Q-Q Normal",
+       x = "Cuantiles Teoricos", y = "Cuantiles Muestrales") +
   theme_minimal()
 
-combined <- grid.arrange(p1, p2, ncol = 2)
-ggsave("../figuras/histograma_vs_densidad_qq.pdf", combined, width = 12, height = 5)
-cat("Gráfico guardado\n")
+# Mostrar segunda figura en panel de plots
+print(p2)
+
+# Opción alternativa: Mostrar ambas en una sola ventana
+# Si prefieres ver las dos gráficas juntas, puedes usar grid.arrange
+cat("\n\n¿Quieres ver ambas gráficas juntas? (s/n): ")
+respuesta <- readline()
+
+if (tolower(respuesta) == "s") {
+  library(gridExtra)
+  p_combinado <- grid.arrange(p1, p2, ncol = 2)
+  print(p_combinado)
+}
