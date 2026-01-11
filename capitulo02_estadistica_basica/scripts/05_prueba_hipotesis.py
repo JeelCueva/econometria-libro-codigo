@@ -7,82 +7,181 @@ CAPÍTULO 2: PRUEBA DE HIPÓTESIS
 """
 
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 from scipy import stats
+import warnings
 
-print("=== PRUEBA DE HIPÓTESIS (Prueba t) ===\n")
+warnings.filterwarnings('ignore')
 
-np.random.seed(123)
+print("="*70)
+print("PRUEBA T PARA LA MEDIA (VISUALIZACIÓN PROFESIONAL)")
+print("="*70)
+
+# Parámetros del experimento
+np.random.seed(20231115)  # Semilla para reproducibilidad exacta
+mu_0 = 100         # H0: μ = 100
+mu_real = 103      # Media poblacional real (para generar datos)
+sigma_real = 15    # Desviación poblacional
+n = 25             # Tamaño muestral
+alpha = 0.05       # Nivel de significancia
+
+print(f"\nDiseño del experimento:")
+print(f"  H0: μ = {mu_0}")
+print(f"  H1: μ ≠ {mu_0} (prueba bilateral)")
+print(f"  Nivel de significancia α = {alpha}")
+print(f"  Tamaño muestral n = {n}\n")
 
 # Generar datos
-n = 25
-mu_hipotetico = 100
-datos = np.random.normal(105, 15, n)
+X = np.random.normal(loc=mu_real, scale=sigma_real, size=n)
 
 # Estadísticos muestrales
-x_barra = np.mean(datos)
-s = np.std(datos, ddof=1)
+x_bar = np.mean(X)
+s = np.std(X, ddof=1)  # Desviación estándar muestral (corregida)
+se = s / np.sqrt(n)    # Error estándar
 
-print("--- Datos ---")
-print(f"Tamaño de muestra: n = {n}")
-print(f"Media muestral: X̄ = {x_barra:.2f}")
-print(f"Desviación estándar: s = {s:.2f}\n")
+print("Estadísticos muestrales:")
+print(f"  Media muestral (X̄) = {x_bar:.2f}")
+print(f"  Desviación estándar (S) = {s:.2f}")
+print(f"  Error estándar (S/√n) = {se:.2f}\n")
 
-# Hipótesis
-print("--- Hipótesis ---")
-print(f"H₀: μ = {mu_hipotetico}")
-print(f"H₁: μ ≠ {mu_hipotetico} (bilateral)")
-print("Nivel de significancia: α = 0.05\n")
+# ==============================================================
+# PRUEBA T
+# ==============================================================
 
-# Estadístico t
-t_stat = (x_barra - mu_hipotetico) / (s / np.sqrt(n))
-df = n - 1
-t_critico = stats.t.ppf(0.975, df)
-p_valor = 2 * stats.t.sf(abs(t_stat), df)
+gl = n - 1  # Grados de libertad
+t_obs = (x_bar - mu_0) / se  # Estadístico t
+t_crit = stats.t.ppf(1 - alpha/2, df=gl)  # Valor crítico bilateral
+p_valor = 2 * (1 - stats.t.cdf(abs(t_obs), df=gl))  # p-valor bilateral
 
-print("--- Resultados ---")
-print(f"Estadístico t = {t_stat:.3f}")
-print(f"Grados de libertad = {df}")
-print(f"Valor crítico t₀.₀₂₅ = {t_critico:.3f}")
-print(f"P-valor = {p_valor:.4f}\n")
+# Intervalo de confianza 95%
+ic_95 = x_bar + np.array([-1, 1]) * stats.t.ppf(0.975, df=gl) * se
 
-# Decisión
-if abs(t_stat) > t_critico:
-    print("Decisión: RECHAZAR H₀ (|t| > t_crítico)")
+print("=== RESULTADOS DE LA PRUEBA T ===")
+print(f"  Grados de libertad = {gl}")
+print(f"  Estadístico t = {t_obs:.3f}")
+print(f"  Valor crítico = ±{t_crit:.3f}")
+print(f"  p-valor = {p_valor:.4f}\n")
+
+print(f"  IC 95% = [{ic_95[0]:.2f}, {ic_95[1]:.2f}]")
+print(f"  ¿Contiene μ0={mu_0}? {'✓ SÍ' if ic_95[0] <= mu_0 <= ic_95[1] else '✗ NO'}\n")
+
+print("=== DECISIÓN ===")
+if p_valor < alpha:
+    print(f"  ✗ RECHAZAR H0 al nivel {alpha}")
 else:
-    print("Decisión: NO RECHAZAR H₀ (|t| ≤ t_crítico)")
+    print(f"  ✓ NO RECHAZAR H0 al nivel {alpha}")
+print()
 
-if p_valor < 0.05:
-    print("Conclusión: Hay evidencia significativa contra H₀\n")
-else:
-    print("Conclusión: No hay evidencia suficiente para rechazar H₀\n")
+# ==============================================================
+# VISUALIZACIÓN PROFESIONAL
+# ==============================================================
 
-# Intervalo de confianza
-ic_lower = x_barra - t_critico * (s / np.sqrt(n))
-ic_upper = x_barra + t_critico * (s / np.sqrt(n))
+print("=== GENERANDO GRÁFICO PROFESIONAL ===")
 
-print("--- Intervalo de Confianza 95% ---")
-print(f"IC: [{ic_lower:.2f}, {ic_upper:.2f}]")
-contiene = mu_hipotetico >= ic_lower and mu_hipotetico <= ic_upper
-print(f"¿Contiene μ₀ = {mu_hipotetico}? {'SÍ' if contiene else 'NO'}\n")
+# Paleta de colores corporativa
+COL_REGION_CRITICA = "#e41a1c"  # Rojo intenso
+COL_T_OBS = "#377eb8"           # Azul profesional
+COL_NORMAL = "#2c2c2c"          # Negro suave
+COL_TEXT = "#333333"            # Gris oscuro para texto
+COL_FONDO = "white"             # Fondo blanco puro
+COL_SOMBRA = "#ffcccc"          # Rojo claro para área p-valor
 
-# Visualización
-t_seq = np.linspace(-4, 4, 500)
-dt_vals = stats.t.pdf(t_seq, df)
+# Secuencia para densidad t
+x_t = np.linspace(-4, 4, 500)
+y_t = stats.t.pdf(x_t, df=gl)
 
-plt.figure(figsize=(10, 6))
-plt.plot(t_seq, dt_vals, 'b-', linewidth=2, label='Distribución t')
-plt.fill_between(t_seq[t_seq < -t_critico], 0, stats.t.pdf(t_seq[t_seq < -t_critico], df), 
-                 alpha=0.3, color='red', label='Región de rechazo')
-plt.fill_between(t_seq[t_seq > t_critico], 0, stats.t.pdf(t_seq[t_seq > t_critico], df), 
-                 alpha=0.3, color='red')
-plt.axvline(t_stat, color='darkgreen', linestyle='--', linewidth=2, label=f't = {t_stat:.2f}')
-plt.xlabel('Estadístico t')
-plt.ylabel('Densidad')
-plt.title('Distribución t y Regiones de Rechazo', fontweight='bold')
-plt.legend()
-plt.grid(alpha=0.3)
+# Data frames para regiones
+df_plot = pd.DataFrame({'t': x_t, 'densidad': y_t})
+df_crit_left = pd.DataFrame({
+    't': np.linspace(-4, -t_crit, 100),
+    'densidad': stats.t.pdf(np.linspace(-4, -t_crit, 100), gl)
+})
+df_crit_right = pd.DataFrame({
+    't': np.linspace(t_crit, 4, 100),
+    'densidad': stats.t.pdf(np.linspace(t_crit, 4, 100), gl)
+})
+df_pval = pd.DataFrame({
+    't': np.linspace(t_obs, 4, 100),
+    'densidad': stats.t.pdf(np.linspace(t_obs, 4, 100), gl)
+})
+
+# Crear figura
+fig, ax = plt.subplots(figsize=(10, 6), facecolor=COL_FONDO)
+
+# Densidad t
+ax.plot(df_plot['t'], df_plot['densidad'], color=COL_NORMAL, linewidth=1.5)
+
+# Regiones críticas
+ax.fill_between(df_crit_left['t'], 0, df_crit_left['densidad'],
+                color=COL_REGION_CRITICA, alpha=0.3, label='Región crítica')
+ax.fill_between(df_crit_right['t'], 0, df_crit_right['densidad'],
+                color=COL_REGION_CRITICA, alpha=0.3)
+
+# Valores críticos
+ax.axvline(-t_crit, color=COL_REGION_CRITICA, linestyle='--', linewidth=1.5)
+ax.axvline(t_crit, color=COL_REGION_CRITICA, linestyle='--', linewidth=1.5)
+
+# Estadístico observado
+ax.axvline(t_obs, color=COL_T_OBS, linestyle='-', linewidth=2)
+
+# Área p-valor
+ax.fill_between(df_pval['t'], 0, df_pval['densidad'],
+                color=COL_SOMBRA, alpha=0.5, label='Área p-valor')
+
+# Etiquetas
+# Construir la cadena del título de forma robusta para MathText
+title_string = r'Distribución t de Student con Región Crítica (alpha = {:.2f})'.format(alpha)
+ax.set_title(title_string,
+             fontsize=14, fontweight='bold', color=COL_TEXT, pad=20)
+ax.set_xlabel('Estadístico t', fontsize=12, fontweight='bold', color=COL_TEXT)
+ax.set_ylabel('Densidad de Probabilidad', fontsize=12, fontweight='bold', color=COL_TEXT)
+
+# Texto con valores
+ax.text(-3.5, 0.35, f't obs = {t_obs:.3f}\np = {p_valor:.4f}',
+        fontsize=10, color=COL_T_OBS, fontweight='bold',
+        bbox=dict(boxstyle="round,pad=0.3", facecolor=COL_FONDO, edgecolor=COL_T_OBS))
+
+ax.text(2.5, 0.35, f't crit = \u00b1{t_crit:.3f}',
+        fontsize=10, color=COL_REGION_CRITICA, fontweight='bold',
+        bbox=dict(boxstyle="round,pad=0.3", facecolor=COL_FONDO, edgecolor=COL_REGION_CRITICA))
+
+# Ejes
+ax.set_xlim(-4, 4)
+ax.set_ylim(0, 0.4)
+ax.tick_params(colors=COL_TEXT, labelsize=11, width=0.5)
+for spine in ax.spines.values():
+    spine.set_visible(False)
+ax.spines['bottom'].set_visible(True)
+ax.spines['left'].set_visible(True)
+ax.spines['bottom'].set_color(COL_NORMAL)
+ax.spines['left'].set_color(COL_NORMAL)
+ax.spines['bottom'].set_linewidth(0.5)
+ax.spines['left'].set_linewidth(0.5)
+
+# Eliminar grid
+ax.grid(False)
+
+# Añadir línea vertical en 0
+# Construir la cadena para H0 de forma robusta para MathText
+h0_text_string = r'H_0: mu = {}'.format(mu_0)
+ax.text(0.1, 0.3, h0_text_string, fontsize=10, color=COL_NORMAL,
+        bbox=dict(boxstyle="round,pad=0.2", facecolor=COL_FONDO, edgecolor=COL_NORMAL))
+
+# IC 95%
+ax.text(0, 0.02, f'IC 95% = [{ic_95[0]:.2f}, {ic_95[1]:.2f}]',
+        fontsize=9, color=COL_T_OBS, ha='center',
+        bbox=dict(boxstyle="round,pad=0.3", facecolor=COL_FONDO, edgecolor=COL_T_OBS))
+
 plt.tight_layout()
-plt.savefig('../figuras/prueba_t_ic_python.pdf', dpi=300, bbox_inches='tight')
-print("Gráfico guardado: figuras/prueba_t_ic_python.pdf")
+plt.savefig('t_test_plot.pdf', bbox_inches='tight')
 plt.show()
+
+print("\n=== GRÁFICO PROFESIONAL GENERADO ===\n")
+print("Características:")
+print("  \u2713 Sin cuadrícula/grid")
+print("  \u2713 Colores corporativos (rojo/azul profesional)")
+print("  \u2713 Regiones críticas sombreadas")
+print("  \u2713 Estadístico observado marcado")
+print("  \u2713 Área p-valor visualizada")
+print("  \u2713 Ejes limpios y minimalistas\n")
